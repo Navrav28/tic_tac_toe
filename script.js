@@ -11,16 +11,33 @@ let playerTurn = currentPlayer;
 // start funcion play game
 const startGame = () => {
   gameCell.forEach((cell) => {
-    cell.addEventListener("click", (e) => {
-      if (e.target.textContent === "") {
-        e.target.textContent = playerTurn;
-        if (checkWin()) {
-          console.log(`${playerTurn} is a winnner`);
-        }
-        // checkWin();
+    cell.addEventListener("click", hendleClick);
+  });
+};
+
+const hendleClick = (e) => {
+  {
+    if (e.target.textContent === "") {
+      e.target.textContent = playerTurn;
+      if (checkWin()) {
+        console.log(`${playerTurn} is a winnner`);
+        disableCell();
+      } else if (checkTie()) {
+        console.log("its a tie");
+        disableCell();
+      } else {
         changePlayerTurn();
       }
-    });
+      // checkWin();
+    }
+  }
+};
+
+// disable game grid
+const disableCell = () => {
+  gameCell.forEach((cell) => {
+    cell.removeEventListener("click", hendleClick);
+    cell.classList.add("disabled");
   });
 };
 // change player turn  function
@@ -65,10 +82,11 @@ const checkWin = () => {
 const checkTie = () => {
   let emptyCellsCount = 0;
   gameCell.forEach((cell) => {
-    if (cell.textContent) {
+    if (cell.textContent === "") {
       emptyCellsCount++;
     }
   });
+  return emptyCellsCount === 0 && !checkWin();
 };
 
 startGame();
