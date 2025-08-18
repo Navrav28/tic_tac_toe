@@ -15,9 +15,9 @@ const startGame = () => {
       if (e.target.textContent === "") {
         e.target.textContent = playerTurn;
         if (checkWin()) {
-          console.log(`${playerTurn}`)
+          console.log(`${playerTurn} is a winnner`);
         }
-        checkWin();
+        // checkWin();
         changePlayerTurn();
       }
     });
@@ -47,7 +47,7 @@ const checkWin = () => {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  for (let i = 0; i <= wininingConditionCheck.length; i++) {
+  for (let i = 0; i < wininingConditionCheck.length; i++) {
     const [pos1, pos2, pos3] = wininingConditionCheck[i];
     if (
       gameCell[pos1].textContent !== "" &&
@@ -57,9 +57,18 @@ const checkWin = () => {
       return true;
     }
     // console.log(`${pos1}${pos2}${pos3}`);
-    console.log(`${pos2}`);
+    // console.log(`${pos2}`);
   }
   return false;
+};
+// check tie
+const checkTie = () => {
+  let emptyCellsCount = 0;
+  gameCell.forEach((cell) => {
+    if (cell.textContent) {
+      emptyCellsCount++;
+    }
+  });
 };
 
 startGame();
