@@ -2,11 +2,15 @@ const gameCell = document.querySelectorAll(".cell");
 const player1 = document.querySelectorAll(".player1");
 const player2 = document.querySelector(".player2");
 const resetbtn = document.querySelector(".resetbtn");
+const alertBox = document.querySelector(".alertBox");
 
 // creates variables
 let currentPlayer = "X";
 let nextpPlayer = "O";
 let playerTurn = currentPlayer;
+
+player1.textContent = `Player 1 : ${currentPlayer}`;
+player2.textContent = `Player 2 : ${nextpPlayer}`;
 
 // start funcion play game
 const startGame = () => {
@@ -20,13 +24,17 @@ const hendleClick = (e) => {
     if (e.target.textContent === "") {
       e.target.textContent = playerTurn;
       if (checkWin()) {
-        console.log(`${playerTurn} is a winnner`);
+        // console.log(`${playerTurn} is a winnner`);
+        showAlert(`${playerTurn} is a winnner`);
         disableCell();
       } else if (checkTie()) {
-        console.log("its a tie");
+        // console.log("its a tie");
+        showAlert(`its a tie`);
+
         disableCell();
       } else {
         changePlayerTurn();
+        showAlert(`Turn for player : ${playerTurn}`);
       }
       // checkWin();
     }
@@ -88,5 +96,23 @@ const checkTie = () => {
   });
   return emptyCellsCount === 0 && !checkWin();
 };
+const restartBtn = () => {
+  gameCell.forEach((cell) => {
+    cell.textContent = "";
+    cell.classList.remove("disabled");
 
+    startGame();
+  });
+};
+// resetbtn.addEventListener("click", restartBtn);
+
+// show alert
+const showAlert = (msg) => {
+  alertBox.style.display = "block";
+  alertBox.textContent = msg;
+  setTimeout(() => {
+    alertBox.style.display = "none";
+  }, 3000);
+};
+resetbtn.addEventListener("click", restartBtn);
 startGame();

@@ -89,6 +89,21 @@ body {
     background-color: #bcbcbc;
 }
 
+.alertBox {
+    position: absolute;
+    top: 0;
+    background-color: #dfdfdf;
+    color: #4d4b51;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 22px;
+    /* text-align: center; */
+    font-weight: 600;
+    height: 40px;
+    display: none;
+
+
+}
 
 
 
